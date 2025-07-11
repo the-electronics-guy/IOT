@@ -159,9 +159,9 @@ class MotorControl:
             speed = self.MAX_SPEED
         self.set_motor_speed('left', speed, 1)
         self.set_motor_speed('right', speed, 1)
-        # Start blinking both LEDs
-        self._start_blinking_led(self.FRONT_LED_PIN, 'front_led_blinking', 'front_led_thread')
-        self._start_blinking_led(self.BACK_LED_PIN, 'back_led_blinking', 'back_led_thread')
+        # Turn both LEDs ON
+        self._set_led(self.FRONT_LED_PIN, True)
+        self._set_led(self.BACK_LED_PIN, True)
     
     def move_backward(self, speed=None):
         """Move robot backward"""
@@ -169,10 +169,8 @@ class MotorControl:
             speed = self.MAX_SPEED
         self.set_motor_speed('left', speed, -1)
         self.set_motor_speed('right', speed, -1)
-        # Stop blinking, turn on back LED, turn off front LED
-        self._stop_blinking_led(self.FRONT_LED_PIN, 'front_led_blinking', 'front_led_thread')
-        self._stop_blinking_led(self.BACK_LED_PIN, 'back_led_blinking', 'back_led_thread')
-        self._set_led(self.FRONT_LED_PIN, False)
+        # Turn both LEDs ON
+        self._set_led(self.FRONT_LED_PIN, True)
         self._set_led(self.BACK_LED_PIN, True)
     
     def turn_left(self, speed=None):
@@ -200,9 +198,7 @@ class MotorControl:
             # Stop both motors
             self._control_motor('left', 0, 0)
             self._control_motor('right', 0, 0)
-        # Stop blinking and turn off LEDs
-        self._stop_blinking_led(self.FRONT_LED_PIN, 'front_led_blinking', 'front_led_thread')
-        self._stop_blinking_led(self.BACK_LED_PIN, 'back_led_blinking', 'back_led_thread')
+        # Turn both LEDs OFF
         self._set_led(self.FRONT_LED_PIN, False)
         self._set_led(self.BACK_LED_PIN, False)
     
